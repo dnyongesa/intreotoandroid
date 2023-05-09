@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toast.makeText
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -15,18 +16,21 @@ class MainActivity : AppCompatActivity() {
         val btnShowToast: Button = findViewById(R.id.btnShowToast)
         Log.i("MainActivity","button was clicked")
         btnShowToast.setOnClickListener() {
-            Toast.makeText(this, "daniel kokonya", Toast.LENGTH_LONG).show()
+            makeText(this, "daniel kokonya", Toast.LENGTH_LONG).show()
         }
 
         val userMessage: TextView = findViewById(R.id.usermessage)
-        userMessage.setOnClickListener {
-            Toast.makeText(this, "second button wsa clicked",Toast.LENGTH_LONG)
+        val sendtonnextact : Button = findViewById(R.id.sendtonnextact)
 
-            val sendtonnextact : Button = findViewById(R.id.sendtonnextact)
-            val message: String = sendtonnextact.text.toString()
-            Toast.makeText(this,message,Toast.LENGTH_LONG).show()
+        sendtonnextact.setOnClickListener {
+            val message: String = userMessage.text.toString()
+            if (message.isNotEmpty()) {
+                makeText(this, message, Toast.LENGTH_LONG).show()
+            } else {
+                makeText(this, "the second button was clicked", Toast.LENGTH_LONG).show()
+            }
 
-            val intent = Intent(this, Second_activity :: class.java)
+            val intent = Intent(this, Second_activity::class.java)
             startActivity(intent)
         }
     }
